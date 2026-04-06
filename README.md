@@ -63,11 +63,11 @@ Server runs on `http://localhost:5000` by default.
 ## Render Deploy
 
 - This repo includes `render.yaml` for backend deployment.
+- `DATABASE_URL` is injected automatically from the blueprint-managed PostgreSQL service.
 - In Render Web Service environment variables, set:
 
 ```env
 NODE_ENV=production
-DATABASE_URL=postgresql://milking_backend_user:HXsbCSKBsuin0Ww5tR1JB5Kr4AuUhw5t@dpg-d79lvoh4tr6s73d0cks0-a.virginia-postgres.render.com/milking_backend
 CORS_ORIGIN=<your-frontend-url>
 ```
 

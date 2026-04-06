@@ -11,6 +11,14 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: milking-backend-db
+          property: internalConnectionString
       - key: CORS_ORIGIN
         sync: false
+
+databases:
+  - name: milking-backend-db
+    plan: free
+    databaseName: milking_backend
+    user: milking_backend_user
