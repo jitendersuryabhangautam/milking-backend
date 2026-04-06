@@ -59,3 +59,11 @@ Server runs on `http://localhost:5000` by default.
 
 ### Get Sessions
 - `GET /sessions`
+
+## Render Deploy
+
+- This repo includes `render.yaml` for backend deployment.
+- In Render, create a Web Service from this repo.
+- Set `DATABASE_URL` using your Render PostgreSQL Internal/External URL.
+- Set `CORS_ORIGIN` to your frontend URL.
+- Health check path: `/health`.
