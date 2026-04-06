@@ -1,4 +1,6 @@
-const { Pool } = require("pg");
+import pg from "pg";
+
+const { Pool } = pg;
 
 const getPoolConfig = () => {
   if (process.env.DATABASE_URL) {
@@ -33,7 +35,4 @@ const initDB = async () => {
   console.log("PostgreSQL connected and schema ready");
 };
 
-module.exports = {
-  pool,
-  initDB,
-};
+export { pool, initDB };

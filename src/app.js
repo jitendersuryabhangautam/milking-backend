@@ -1,9 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
 
-const sessionRoutes = require("./routes/sessionRoutes");
-const { notFoundHandler, errorHandler } = require("./middlewares/errorMiddleware");
+import sessionRoutes from "./routes/sessionRoutes.js";
+import { notFoundHandler, errorHandler } from "./middlewares/errorMiddleware.js";
 
 const app = express();
 
@@ -24,4 +24,4 @@ app.use("/sessions", sessionRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

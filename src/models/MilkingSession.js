@@ -1,4 +1,4 @@
-const { pool } = require("../config/db");
+import { pool } from "../config/db.js";
 
 const createMilkingSession = async ({ start_time, end_time, duration, milk_quantity }) => {
   const query = `
@@ -23,7 +23,4 @@ const listMilkingSessions = async () => {
   return rows;
 };
 
-module.exports = {
-  createMilkingSession,
-  listMilkingSessions,
-};
+export { createMilkingSession, listMilkingSessions };

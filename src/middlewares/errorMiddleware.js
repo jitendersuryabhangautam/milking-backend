@@ -12,7 +12,4 @@ const errorHandler = (err, _req, res, _next) => {
   });
 };
 
-module.exports = {
-  notFoundHandler,
-  errorHandler,
-};
+export { notFoundHandler, errorHandler };

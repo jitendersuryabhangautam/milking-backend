@@ -39,6 +39,4 @@ const validateCreateSession = (req, res, next) => {
   return next();
 };
 
-module.exports = {
-  validateCreateSession,
-};
+export { validateCreateSession };

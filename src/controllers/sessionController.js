@@ -1,7 +1,7 @@
-const {
+import {
   createMilkingSession,
   listMilkingSessions,
-} = require("../models/MilkingSession");
+} from "../models/MilkingSession.js";
 
 const createSession = async (req, res, next) => {
   try {
@@ -46,7 +46,4 @@ const getSessions = async (_req, res, next) => {
   }
 };
 
-module.exports = {
-  createSession,
-  getSessions,
-};
+export { createSession, getSessions };

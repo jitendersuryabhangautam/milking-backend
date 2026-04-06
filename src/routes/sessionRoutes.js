@@ -1,11 +1,11 @@
-const express = require("express");
+import express from "express";
 
-const { createSession, getSessions } = require("../controllers/sessionController");
-const { validateCreateSession } = require("../middlewares/validationMiddleware");
+import { createSession, getSessions } from "../controllers/sessionController.js";
+import { validateCreateSession } from "../middlewares/validationMiddleware.js";
 
 const router = express.Router();
 
 router.get("/", getSessions);
 router.post("/", validateCreateSession, createSession);
 
-module.exports = router;
+export default router;
