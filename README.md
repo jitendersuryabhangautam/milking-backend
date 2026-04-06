@@ -63,7 +63,25 @@ Server runs on `http://localhost:5000` by default.
 ## Render Deploy
 
 - This repo includes `render.yaml` for backend deployment.
-- In Render, create a Web Service from this repo.
-- Set `DATABASE_URL` using your Render PostgreSQL Internal/External URL.
-- Set `CORS_ORIGIN` to your frontend URL.
-- Health check path: `/health`.
+- In Render Web Service environment variables, set:
+
+```env
+NODE_ENV=production
+DATABASE_URL=postgresql://milking_backend_user:HXsbCSKBsuin0Ww5tR1JB5Kr4AuUhw5t@dpg-d79lvoh4tr6s73d0cks0-a.virginia-postgres.render.com/milking_backend
+CORS_ORIGIN=<your-frontend-url>
+```
+
+- Health check path: `/health`
+
+## Production API URLs (after deploy)
+
+If your Render service URL is `https://<your-service>.onrender.com`, then:
+
+- `GET https://<your-service>.onrender.com/health`
+- `GET https://<your-service>.onrender.com/sessions`
+- `POST https://<your-service>.onrender.com/sessions`
+
+With current `render.yaml` service name (`milking-backend`), typical URL is:
+
+- `https://milking-backend.onrender.com/health`
+- `https://milking-backend.onrender.com/sessions`
