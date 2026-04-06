@@ -2,31 +2,54 @@ import pg from "pg";
 
 const { Pool } = pg;
 
+const isProduction = process.env.NODE_ENV === "production";
+
+const getConnectionString = () =>
+  process.env.DATABASE_URL ||
+  process.env.INTERNAL_DATABASE_URL ||
+  process.env.POSTGRES_URL ||
+  process.env.POSTGRES_INTERNAL_URL ||
+  "";
+
 const shouldUseSSL = () => {
   if (process.env.PGSSL === "true") return true;
   if (process.env.PGSSL === "false") return false;
 
-  if (!process.env.DATABASE_URL) {
-    return process.env.NODE_ENV === "production";
+  const connectionString = getConnectionString();
+  if (!connectionString) {
+    return isProduction;
   }
 
   try {
-    const hostname = new URL(process.env.DATABASE_URL).hostname;
+    const hostname = new URL(connectionString).hostname;
     // Render internal Postgres URLs usually don't require SSL.
     if (hostname.endsWith(".internal")) return false;
   } catch (_error) {
     // If URL parsing fails, fall back to production default below.
   }
 
-  return process.env.NODE_ENV === "production";
+  return isProduction;
 };
 
 const getPoolConfig = () => {
-  if (process.env.DATABASE_URL) {
+  const connectionString = getConnectionString();
+  if (connectionString) {
     return {
-      connectionString: process.env.DATABASE_URL,
+      connectionString,
       ssl: shouldUseSSL() ? { rejectUnauthorized: false } : false,
     };
+  }
+
+  const hasDiscreteConfig =
+    process.env.PGHOST &&
+    process.env.PGDATABASE &&
+    process.env.PGUSER &&
+    process.env.PGPASSWORD;
+
+  if (!hasDiscreteConfig && isProduction) {
+    throw new Error(
+      "Database is not configured. Set DATABASE_URL (or INTERNAL_DATABASE_URL) or PGHOST/PGDATABASE/PGUSER/PGPASSWORD in Render env vars."
+    );
   }
 
   return {
